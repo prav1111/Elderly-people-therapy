@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Voice Input</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="ai-page">
+    <nav>
+      <a href="home.html" class="bug-icon"
+        >🐞<br /><span style="font-size: 14px; color: black">Home Page</span></a
+      >
+    </nav>
+
+    <div class="nav-center">
+      <div class="recording-controls">
+        <button id="startRecording" class="record-button">
+          Start Recording
+        </button>
+        <button id="stopRecording" class="record-button" disabled>
+          Stop Recording
+        </button>
+        <button id="processButton" class="process-button">Process</button>
+      </div>
+      <div id="recordingStatus" class="recording-status">Ready to record</div>
+    </div>
+
+    <canvas id="bgCanvas"></canvas>
+    <script src="ai-particles.js"></script>
+    <script>
+      // Voice recording functionality
+      let mediaRecorder;
+      let audioChunks = [];
+      const startButton = document.getElementById("startRecording");
+      const stopButton = document.getElementById("stopRecording");
+      const processButton = document.getElementById("processButton");
+      const statusDisplay = document.getElementById("recordingStatus");
+
+      startButton.addEventListener("click", async () => {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+          mediaRecorder = new MediaRecorder(stream);
+          audioChunks = [];
+
+          mediaRecorder.ondataavailable = (event) => {
+            audioChunks.push(event.data);
+          };
+
+          mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+            // Here you would typically send the audioBlob to your server
+            statusDisplay.textContent = "Recording stopped";
+          };
+
+          mediaRecorder.start();
+          statusDisplay.textContent = "Recording...";
+          startButton.disabled = true;
+          stopButton.disabled = false;
+        } catch (err) {
+          console.error("Error accessing microphone:", err);
+          statusDisplay.textContent = "Error accessing microphone";
+        }
+      });
+
+      stopButton.addEventListener("click", () => {
+        if (mediaRecorder && mediaRecorder.state !== "inactive") {
+          mediaRecorder.stop();
+          startButton.disabled = false;
+          stopButton.disabled = true;
+        }
+      });
+
+      processButton.addEventListener("click", () => {
+        // Placeholder for processing functionality
+        statusDisplay.textContent = "Processing...";
+        setTimeout(() => {
+          statusDisplay.textContent = "Processing complete";
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>
