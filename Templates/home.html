@@ -13,56 +13,99 @@
       <a href="ai.html" class="nav-right">The AI</a>
     </nav>
 
-    <div class="nav-center">
-      <a href="ai.html" class="ask-question">Do you want someone to talk to?</a>
+    <div class="hero-section">
+      <h1 class="main-title">AI सारथी</h1>
+      <a href="ai.html" class="button-link">
+        <button class="animated-button" id="animatedButton">
+          <span class="button-text">Need someone to talk to?</span>
+        </button>
+      </a>
     </div>
 
     <div class="problem-statement">
-      <h2>The Challenge of Elderly Care in India</h2>
-      <p>
-        In India, the elderly population is experiencing a significant rise,
-        projected to increase from 8% in 2015 to 11.5% in 2025 and 19% by 2050.
-        This demographic shift has led to a growing number of senior citizens
-        residing in old age homes or living alone, especially in rural areas.
-        These individuals often face multifaceted challenges, including:
+      <h2 class="sub-title">The Problem</h2>
+      <p class="problem-content">
+        Despite several government schemes designed to protect and assist the
+        elderly, there remains a significant gap in targeted policies and social
+        support systems—especially for seniors living alone or in old age homes.
+        This issue is particularly severe in rural areas, where access to
+        healthcare, mental health services, and community programs is limited or
+        nonexistent. Many elderly individuals in these regions face neglect,
+        loneliness, and a lack of emotional and physical care. To ensure their
+        well-being, it is crucial to develop inclusive policies that address the
+        unique challenges of aging in isolation, especially outside urban
+        centers.
       </p>
+      <div class="button-container">
+        <button class="content-button learn-more">Learn More</button>
+        <button class="content-button solution">The Solution</button>
+      </div>
+      <div class="challenge-section">
+        <h2 class="challenge-title">Challenge Of Elderly Care In India</h2>
+        <div class="problem-label">The Problem</div>
+        <div class="info-note">
+          <em>(click the spheres for more information)</em>
+        </div>
+        <div class="v-lines">
+          <div class="v-circle left">
+            <div class="sphere-text">INDIAS INCREASING ELDERLY POPULATION</div>
+          </div>
+          <div class="v-circle right">
+            <div class="sphere-text">SOCIAL ISOLATION AND LONELINESS</div>
+          </div>
+          <div class="v-lines-branch">
+            <div class="v-circle branch left"></div>
+            <div class="v-circle branch right"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <h3>Social Isolation and Loneliness</h3>
-      <p>
-        Many elderly individuals experience profound loneliness due to limited
-        family interactions and reduced social networks. Studies indicate that
-        the prevalence of severe loneliness in care homes can range from 22% to
-        42%, compared to 10% in the community population.
-      </p>
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="popup" id="elderlyPopup">
+      <button class="popup-close" id="popupClose">&times;</button>
+      <div class="popup-content">
+        <div class="popup-text">
+          India faces a growing challenge in elderly care as its senior
+          population rises sharply, projected to reach 19% by 2050. Many elderly
+          individuals, especially in rural areas, live alone or in old age
+          homes, struggling with social isolation, loneliness, and mental health
+          issues like depression. Although government schemes exist, support
+          structures remain inadequate, leaving many seniors vulnerable. To
+          address these emotional and psychological challenges, innovative
+          solutions such as AI-driven conversational agents could provide
+          companionship and mental stimulation, helping to improve the quality
+          of life for elderly citizens. Urgent action is needed to support this
+          rapidly growing demographic.
+        </div>
+        <img src="growth.png" alt="Growth" class="popup-image" />
+      </div>
+    </div>
 
-      <h3>Mental Health Issues</h3>
-      <p>
-        A significant portion of the elderly suffer from mental health
-        conditions. The World Health Organization estimates that depressive
-        disorders among the elderly vary between 10% and 20%, with higher rates
-        observed among those who have lost partners and live alone.
-      </p>
-
-      <h3>Lack of Adequate Support Structures</h3>
-      <p>
-        Despite various government schemes aimed at protecting the elderly,
-        there is a notable absence of dedicated policies and social structures
-        to support those living alone or in old age homes, particularly in rural
-        regions.
-      </p>
-
-      <p>
-        These challenges underscore the urgent need for innovative solutions to
-        address the emotional and psychological well-being of the elderly.
-        Implementing AI-driven conversational agents could offer companionship
-        and mental stimulation, potentially mitigating feelings of isolation and
-        improving overall quality of life for seniors in old age homes and those
-        living alone.
-      </p>
+    <div class="popup-overlay" id="popupOverlayRight"></div>
+    <div class="popup" id="isolationPopup">
+      <button class="popup-close" id="popupCloseRight">&times;</button>
+      <div class="popup-content">
+        <div class="popup-text">
+          Many elderly individuals face mental health challenges, with
+          depression being especially common. The World Health Organization
+          estimates that 10% to 20% of older adults suffer from depressive
+          disorders. Rates are higher among those who have lost their partners
+          and live alone, as loneliness and grief can significantly impact
+          emotional well-being.<br /><br />
+          Despite this, many seniors do not seek help due to stigma or the
+          belief that depression is a normal part of aging. Raising awareness,
+          encouraging social interaction, and providing access to mental health
+          care are essential steps to support the elderly and improve their
+          overall quality of life.
+        </div>
+        <img src="isolation.png" alt="Isolation" class="popup-image" />
+      </div>
     </div>
 
     <canvas id="bgCanvas"></canvas>
     <script src="particles.js"></script>
     <script src="scroll-animation.js"></script>
+    <script src="button-animation.js"></script>
   </body>
 </html>
