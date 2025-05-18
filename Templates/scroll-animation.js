@@ -38,4 +38,46 @@ document.addEventListener('DOMContentLoaded', function() {
       overlayRight.classList.remove('show');
     });
   }
+
+  // New: Mental Health Issues branch sphere popup
+  const mentalSphere = document.querySelector('.v-circle.branch.left');
+  const mentalPopup = document.getElementById('mentalPopup');
+  const overlayMental = document.getElementById('popupOverlayMental');
+  const closeBtnMental = document.getElementById('popupCloseMental');
+
+  if (mentalSphere && mentalPopup && overlayMental && closeBtnMental) {
+    mentalSphere.addEventListener('click', function(e) {
+      mentalPopup.classList.add('show');
+      overlayMental.classList.add('show');
+    });
+    closeBtnMental.addEventListener('click', function() {
+      mentalPopup.classList.remove('show');
+      overlayMental.classList.remove('show');
+    });
+    overlayMental.addEventListener('click', function() {
+      mentalPopup.classList.remove('show');
+      overlayMental.classList.remove('show');
+    });
+  }
+
+  // New: Gaps in Elderly Care branch sphere popup
+  const gapsSphere = document.querySelector('.v-circle.branch.right');
+  const gapsPopup = document.getElementById('gapsPopup');
+  const overlayGaps = document.getElementById('popupOverlayGaps');
+  const closeBtnGaps = document.getElementById('popupCloseGaps');
+
+  if (gapsSphere && gapsPopup && overlayGaps && closeBtnGaps) {
+    gapsSphere.addEventListener('click', function(e) {
+      gapsPopup.classList.add('show');
+      overlayGaps.classList.add('show');
+    });
+    closeBtnGaps.addEventListener('click', function() {
+      gapsPopup.classList.remove('show');
+      overlayGaps.classList.remove('show');
+    });
+    overlayGaps.addEventListener('click', function() {
+      gapsPopup.classList.remove('show');
+      overlayGaps.classList.remove('show');
+    });
+  }
 }); 

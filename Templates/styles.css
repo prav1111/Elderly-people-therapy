@@ -214,7 +214,7 @@ nav a, .nav-left, .nav-right, .main-title, .sub-title, .problem-content, .conten
     position: relative;
     width: 300px;
     height: 300px;
-    margin: 0.5rem auto 0 auto;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -257,23 +257,27 @@ nav a, .nav-left, .nav-right, .main-title, .sub-title, .problem-content, .conten
     transform: translateX(-50%) rotate(45deg) translateY(300px) rotate(-45deg);
 }
 
-.v-circle.branch {
-    width: 150px;
-    height: 150px;
-    background: #888;
-    border-radius: 50%;
-    position: absolute;
-    z-index: 2;
+.v-lines-branch {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
 }
 .v-circle.branch.left {
-    left: 0;
-    bottom: -75px;
+    position: absolute;
+    left: -120px;
+    top: 223px;
     transform: none;
 }
 .v-circle.branch.right {
-    right: 0;
-    bottom: -75px;
+    position: absolute;
+    left: 275px;
+    top: 223px;
     transform: none;
+}
+
+.v-circle.branch.left, .v-circle.branch.right {
+    pointer-events: auto;
 }
 
 .challenge-section {
@@ -385,8 +389,8 @@ nav a, .nav-left, .nav-right, .main-title, .sub-title, .problem-content, .conten
 
 .v-lines-branch {
     position: absolute;
-    left: calc(50% + 225px);
-    top: 100%;
+    left: 120%;
+    top: 120%;
     transform: translateX(-50%);
     width: 300px;
     height: 300px;
