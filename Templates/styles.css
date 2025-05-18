@@ -257,25 +257,6 @@ nav a, .nav-left, .nav-right, .main-title, .sub-title, .problem-content, .conten
     transform: translateX(-50%) rotate(45deg) translateY(300px) rotate(-45deg);
 }
 
-.v-lines-branch {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    margin: 0 auto;
-}
-.v-circle.branch.left {
-    position: absolute;
-    left: -120px;
-    top: 223px;
-    transform: none;
-}
-.v-circle.branch.right {
-    position: absolute;
-    left: 275px;
-    top: 223px;
-    transform: none;
-}
-
 .v-circle.branch.left, .v-circle.branch.right {
     pointer-events: auto;
 }
@@ -416,4 +397,98 @@ nav a, .nav-left, .nav-right, .main-title, .sub-title, .problem-content, .conten
 .v-lines-branch::after {
     left: 50%;
     transform: translateX(-50%) rotate(42deg);
+}
+
+.vertical-line {
+    position: absolute;
+    width: 4px;
+    height: 120px;
+    background: #fff;
+    z-index: 1;
+}
+
+.vertical-line-left {
+    left: -45px;
+    top: 363px;
+    height: 560px;
+}
+
+.vertical-line-right {
+    left: 210px;
+    top: 320px;
+    transform:rotate(30deg);
+    height:650px;
+}
+
+.v-circle.end-circle {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: #888;
+    border-radius: 50%;
+    top:1270px;
+    z-index: 2;
+    left:135px;
+}
+
+.vertical-line-innovative {
+    position: absolute;
+    width: 4px;
+    height: 400px;
+    background: #fff;
+    z-index: 1;
+    left: 210px;
+    top: 1420px;
+}
+
+.vertical-line-india {
+    position: absolute;
+    width: 4px;
+    height:950px;
+    background: #fff;
+    z-index: 1;
+    left: 40px;
+    top: 350px;
+    transform:rotate(-15deg);
+}
+
+.conclusion-header {
+    color: #fff;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top:1500px;
+    margin-left:110px;
+    font-family: "Times New Roman", sans-serif;
+    
+    font-weight: normal;
+}
+
+.conclusion-text {
+    color: #fff;
+    text-align: center;
+    font-size: 1rem;
+    max-width: 900px;
+    margin: 10px 0 0 370px;
+    font-family: "Times New Roman", Times, serif;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+    padding-bottom: 120px;
+}
+
+.gpt-image-left {
+    position: absolute;
+    left: -500px;
+    top: -960px;
+    width: 400px;
+    z-index: 10;
+    border-radius: 20px;
+}
+
+.gpt-image-right {
+    position: absolute;
+    right: 100px;
+    top: 1600px;
+    width: 450px;
+    z-index: 10;
+    border-radius: 20px;
 } 

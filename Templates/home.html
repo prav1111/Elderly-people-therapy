@@ -37,19 +37,32 @@
         centers.
       </p>
       <div class="button-container">
-        <button class="content-button learn-more">Learn More</button>
+        <button class="content-button learn-more" id="learn-more-btn">
+          Learn More
+        </button>
         <button class="content-button solution">The Solution</button>
       </div>
-      <div class="challenge-section">
+      <img
+        src="Elder guy smiling.png"
+        alt="Elderly Guy Smiling"
+        class="gpt-image-right"
+      />
+      <div class="challenge-section" id="challenge-section">
         <h2 class="challenge-title">Challenge Of Elderly Care In India</h2>
         <div class="problem-label">The Problem</div>
         <div class="info-note">
-          <em>(click the spheres for more information)</em>
+          <em>(click the circles for more information)</em>
         </div>
         <div class="v-lines">
           <div class="v-circle left">
             <div class="sphere-text">INDIAS INCREASING ELDERLY POPULATION</div>
           </div>
+          <div class="vertical-line vertical-line-india"></div>
+          <img
+            src="ChatGPT Image May 14, 2025, 08_59_12 PM.png"
+            alt="ChatGPT"
+            class="gpt-image-left"
+          />
           <div class="v-circle right">
             <div class="sphere-text">SOCIAL ISOLATION AND LONELINESS</div>
           </div>
@@ -57,10 +70,16 @@
             <div class="v-circle branch left">
               <div class="sphere-text">MENTAL HEALTH ISSUES</div>
             </div>
+            <div class="vertical-line vertical-line-left"></div>
             <div class="v-circle branch right">
               <div class="sphere-text">GAPS IN ELDERLY CARE</div>
             </div>
+            <div class="vertical-line vertical-line-right"></div>
           </div>
+          <div class="v-circle end-circle">
+            <div class="sphere-text">INNOVATIVE SOLUTIONS</div>
+          </div>
+          <div class="vertical-line vertical-line-innovative"></div>
         </div>
       </div>
     </div>
@@ -145,6 +164,38 @@
         </div>
       </div>
     </div>
+
+    <div class="popup-overlay" id="popupOverlayInnovative"></div>
+    <div class="popup" id="innovativePopup">
+      <button class="popup-close" id="popupCloseInnovative">&times;</button>
+      <div class="popup-content">
+        <div class="popup-text">
+          These challenges highlight the urgent need for innovative solutions to
+          support the emotional and psychological well-being of the elderly. One
+          promising approach is the implementation of AI-driven conversational
+          agents, which can provide seniors with a sense of companionship and
+          daily engagement. These virtual assistants can offer meaningful
+          conversation, reminders, mental exercises, and even detect early signs
+          of emotional distress. For older adults living alone or in old age
+          homes—especially in rural or under-resourced areas—such technology
+          could significantly reduce feelings of loneliness and isolation,
+          ultimately enhancing their mental health and overall quality of life.
+        </div>
+      </div>
+    </div>
+
+    <div class="vertical-line vertical-line-innovative"></div>
+    <h2 class="conclusion-header">CONCLUSION</h2>
+    <p class="conclusion-text">
+      In conclusion, while existing government schemes provide a foundation for
+      elderly care, they often fall short in addressing the unique needs of
+      seniors living alone, particularly in rural areas. The lack of targeted
+      policies and accessible support systems leaves many vulnerable to
+      isolation, neglect, and poor mental health. To ensure a dignified and
+      fulfilling life for the elderly, it is essential to develop inclusive,
+      community-based solutions that prioritize emotional well-being, healthcare
+      access, and social connection.
+    </p>
 
     <canvas id="bgCanvas"></canvas>
     <script src="particles.js"></script>

@@ -80,4 +80,37 @@ document.addEventListener('DOMContentLoaded', function() {
       overlayGaps.classList.remove('show');
     });
   }
+
+  // Innovative Solutions end-circle popup
+  const innovativeCircle = document.querySelector('.v-circle.end-circle');
+  const innovativePopup = document.getElementById('innovativePopup');
+  const overlayInnovative = document.getElementById('popupOverlayInnovative');
+  const closeBtnInnovative = document.getElementById('popupCloseInnovative');
+
+  if (innovativeCircle && innovativePopup && overlayInnovative && closeBtnInnovative) {
+    innovativeCircle.addEventListener('click', function(e) {
+      innovativePopup.classList.add('show');
+      overlayInnovative.classList.add('show');
+    });
+    closeBtnInnovative.addEventListener('click', function() {
+      innovativePopup.classList.remove('show');
+      overlayInnovative.classList.remove('show');
+    });
+    overlayInnovative.addEventListener('click', function() {
+      innovativePopup.classList.remove('show');
+      overlayInnovative.classList.remove('show');
+    });
+  }
+
+  // Smooth scroll with offset for Learn More button
+  const learnMoreBtn = document.getElementById('learn-more-btn');
+  if (learnMoreBtn) {
+    learnMoreBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.getElementById('challenge-section');
+      const yOffset = 550;//ased negative value for more space above
+      const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  }
 }); 
