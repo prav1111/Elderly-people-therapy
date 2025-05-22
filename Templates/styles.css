@@ -9,7 +9,7 @@ body {
     font-family: "Times New Roman", Times, serif;
     font-weight: normal;
     line-height: 1.6;
-    background-color: #000000;
+    background-color: #333;
     color: #ffffff;
 }
 
@@ -19,8 +19,9 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #1a1a1a;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+    position: relative;
+    background-color: transparent;
+    box-shadow: none;
 }
 
 nav a {
@@ -42,6 +43,10 @@ nav a:hover {
 .bug-icon {
     font-size: 1.5rem;
     text-decoration: none;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* Hero Section Styles */
@@ -96,9 +101,27 @@ nav a:hover {
 
 /* Main Content Styles */
 .nav-center {
-    margin-top: 80px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
     text-align: center;
-    padding: 2rem;
+    font-family: "Times New Roman", Times, serif;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-center .main-text {
+    font-size: 1.7rem;
+    font-weight: normal;
+}
+
+.nav-center .sub-text {
+    font-size: 0.95rem;
+    font-weight: normal;
+    margin-top: 2px;
 }
 
 .problem-statement {
@@ -255,6 +278,10 @@ nav a, .nav-left, .nav-right, .main-title, .sub-title, .problem-content, .conten
     left: 50%;
     top: 0;
     transform: translateX(-50%) rotate(45deg) translateY(300px) rotate(-45deg);
+}
+
+.v-circle:hover {
+    background: #000;
 }
 
 .v-circle.branch.left, .v-circle.branch.right {
@@ -491,4 +518,174 @@ nav a, .nav-left, .nav-right, .main-title, .sub-title, .problem-content, .conten
     width: 450px;
     z-index: 10;
     border-radius: 20px;
-} 
+}
+
+.nav-left {
+    margin-right: auto;
+}
+
+.blue-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 100vh;
+    background: #007bff;
+    z-index: 0;
+}
+
+.blue-square, .blue-square-bottom, .blue-square-mid {
+    background: #fff !important;
+    color: #111 !important;
+}
+
+.blue-square-title, .blue-square-content {
+    color: #111 !important;
+}
+
+.blue-square {
+    position: relative;
+    top: 140px;
+    left: 40px;
+    width: 600px;
+    height: 400px;
+    background: #007bff;
+    border-radius: 12px;
+    z-index: 10;
+}
+
+.blue-square-title {
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.blue-square-content {
+    color: #fff;
+    font-size: 1.05rem;
+    margin: 24px 16px 0 16px;
+    text-align: left;
+    line-height: 1.6;
+    font-family: "Times New Roman", Times, serif;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(1080deg); /* 3 full rotations (3 * 360deg) */
+    }
+}
+
+img.blue-box-image {
+    position: relative !important;
+    top: -100px !important;
+    left: 550px !important;
+    width: 1000px !important;
+    height: 400px !important;
+    object-fit: cover !important;
+    border-radius: 12px !important;
+    z-index: 9999 !important;
+    animation: spin 2s ease-in-out;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, nav, a, .nav-center, .main-text, .sub-text, .blue-square-title, .sphere-text, .challenge-title, .problem-content, .problem-label, .info-note, .content-button, .animated-button, .button-text, .button-link, .popup, .popup-content, .popup-text {
+    font-family: "Times New Roman", Times, serif !important;
+    font-weight: normal !important;
+}
+
+.blue-square-bottom {
+    position: relative;
+    width: 600px;
+    height: 400px;
+    background: #007bff;
+    border-radius: 12px;
+    z-index: 10;
+    margin: -100px 0 40px 900px;
+    
+}
+
+.hours-container {
+    position: absolute;
+    top: 170px;
+    right: 180px;
+    text-align: center;
+    z-index: 100;
+}
+
+.hours-large {
+    font-size: 6rem;
+    color: #ffa500;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: normal;
+    display: block;
+}
+
+.hours-small {
+    font-size: 1.3rem;
+    color: #fff;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: normal;
+    margin-top: 0.2em;
+}
+
+.point2-image {
+    position: absolute;
+    left: 500px;
+    top: 1100px;
+    width: 400px;
+    z-index: 100;
+}
+
+.blue-square-mid {
+    position: absolute;
+    left: 70px;
+    top: 1200px;
+    width: 500px;
+    height: 400px;
+    background: #007bff;
+    border-radius: 12px;
+    z-index: 101;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.blue-square-mid .blue-square-title {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-left: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.blue-square-mid .blue-square-content {
+    margin-left: 0;
+    text-align: center;
+    width: 90%;
+}
+
+.dawg-image {
+    position: absolute;
+    left: 200px;
+    top: 800px;
+    width: 400px;
+    z-index: 100;
+}
+
+.dawg-label {
+    position: absolute;
+    left: 200px;
+    top: 740px;
+    font-size: 2rem;
+    color: #fff;
+    font-family: "Times New Roman", Times, serif;
+    z-index: 101;
+    text-shadow: 1px 1px 8px #000;
+}
+
