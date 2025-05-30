@@ -3,84 +3,302 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Voice Input</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles.css')}}"
-    />
-  </head>
-  <body class="ai-page">
-    <nav>
-      <a href="{{ url_for('about')}}" class="nav-left">About</a>
-      <a href="{{ url_for('home')}}" class="bug-icon">🏠</a>
-    </nav>
+    <title>AI Companion</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #000;
+      }
 
-    <div class="nav-center">
-      <div class="recording-controls">
-        <button id="startRecording" class="record-button">
-          Start Recording
-        </button>
-        <button id="stopRecording" class="record-button" disabled>
-          Stop Recording
-        </button>
-        <button id="processButton" class="process-button">Process</button>
+      .model-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        background-color: #000;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      .background-image img {
+        width: 900px;
+        height: auto;
+        object-fit: contain;
+        opacity: 1;
+        transition: all 0.5s ease;
+        margin-bottom: 50px;
+      }
+
+      .background-image.processing img,
+      .background-image.recording img {
+        filter: brightness(0.5);
+        opacity: 0.4;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 2;
+        transition: background-color 0.5s ease;
+      }
+
+      .overlay.dark {
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      .mic-button-container {
+        position: relative;
+        z-index: 4;
+        margin-bottom: 50px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .background-image video {
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 900px;
+        height: auto;
+        object-fit: contain;
+        z-index: 2;
+      }
+
+      .mic-button,
+      .replay-button {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(10px);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .mic-button::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        border-top-color: #fff;
+        border-right-color: #fff;
+        animation: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .mic-button.processing::before {
+        opacity: 1;
+        animation: rotate 1s linear infinite;
+      }
+
+      .mic-button .mic-icon,
+      .replay-button .replay-icon {
+        font-size: 2rem;
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      .mic-button.recording {
+        background: rgba(255, 0, 0, 0.3);
+        animation: pulse 1.5s infinite;
+      }
+
+      .replay-button {
+        display: none;
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="model-container">
+      <div class="background-image" id="background-container">
+        <img
+          src="{{ url_for('static', filename='an.jpg')}}"
+          alt="Background"
+          id="background-img"
+        />
+        <div class="overlay" id="overlay"></div>
+        <video id="response-video" autoplay style="display: none"></video>
       </div>
-      <div id="recordingStatus" class="recording-status">Ready to record</div>
+
+      <div class="mic-button-container">
+        <button id="mic-btn" class="mic-button">
+          <span class="mic-icon">🎙️</span>
+        </button>
+        <button id="replay-btn" class="replay-button">
+          <span class="replay-icon">🔄</span>
+        </button>
+      </div>
     </div>
 
-    <canvas id="bgCanvas"></canvas>
-    <script src="{{ url_for('static', filename='particles.js')}}"></script>
     <script>
-      // Voice recording functionality
       let mediaRecorder;
       let audioChunks = [];
-      const startButton = document.getElementById("startRecording");
-      const stopButton = document.getElementById("stopRecording");
-      const processButton = document.getElementById("processButton");
-      const statusDisplay = document.getElementById("recordingStatus");
+      let isRecording = false;
+      let isProcessing = false;
+      let isVideoPlaying = false;
 
-      startButton.addEventListener("click", async () => {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            audio: true,
-          });
-          mediaRecorder = new MediaRecorder(stream);
-          audioChunks = [];
+      const micButton = document.getElementById("mic-btn");
+      const replayButton = document.getElementById("replay-btn");
+      const backgroundImg = document.getElementById("background-img");
+      const responseVideo = document.getElementById("response-video");
+      const overlay = document.getElementById("overlay");
+      const backgroundContainer = document.getElementById(
+        "background-container"
+      );
 
-          mediaRecorder.ondataavailable = (event) => {
-            audioChunks.push(event.data);
-          };
-
-          mediaRecorder.onstop = () => {
-            const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
-            // Here you would typically send the audioBlob to your server
-            statusDisplay.textContent = "Recording stopped";
-          };
-
-          mediaRecorder.start();
-          statusDisplay.textContent = "Recording...";
-          startButton.disabled = true;
-          stopButton.disabled = false;
-        } catch (err) {
-          console.error("Error accessing microphone:", err);
-          statusDisplay.textContent = "Error accessing microphone";
+      replayButton.addEventListener("click", () => {
+        if (responseVideo.src) {
+          responseVideo.currentTime = 0;
+          responseVideo.play();
+          isVideoPlaying = true;
         }
       });
 
-      stopButton.addEventListener("click", () => {
-        if (mediaRecorder && mediaRecorder.state !== "inactive") {
+      micButton.addEventListener("click", async () => {
+        if (isProcessing || isVideoPlaying) return;
+
+        if (!isRecording) {
+          try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+              audio: true,
+            });
+            mediaRecorder = new MediaRecorder(stream);
+            audioChunks = [];
+
+            mediaRecorder.ondataavailable = (event) => {
+              audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = async () => {
+              isProcessing = true;
+              micButton.disabled = true;
+              micButton.classList.add("processing");
+              micButton.innerHTML = '<span class="mic-icon">⚙️</span>';
+              overlay.classList.add("dark");
+              backgroundContainer.classList.add("processing");
+
+              const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+              const formData = new FormData();
+              formData.append("audio_data", audioBlob);
+
+              try {
+                const response = await fetch("/process_audio", {
+                  method: "POST",
+                  body: formData,
+                });
+
+                const data = await response.json();
+                backgroundImg.style.display = "none";
+                responseVideo.style.display = "block";
+                responseVideo.src = data.video_url;
+                isVideoPlaying = true;
+                replayButton.style.display = "flex";
+                await responseVideo.play();
+
+                responseVideo.onended = () => {
+                  isVideoPlaying = false;
+                  isProcessing = false;
+                  micButton.disabled = false;
+                  micButton.classList.remove("processing");
+                  micButton.innerHTML = '<span class="mic-icon">🎙️</span>';
+                  responseVideo.style.display = "none";
+                  backgroundImg.style.display = "block";
+                  overlay.classList.remove("dark");
+                  backgroundContainer.classList.remove("processing");
+
+                  setTimeout(() => {
+                    replayButton.style.display = "none";
+                  }, 3000);
+                };
+              } catch (error) {
+                console.error("Error processing audio:", error);
+                isVideoPlaying = false;
+                isProcessing = false;
+                micButton.disabled = false;
+                overlay.classList.remove("dark");
+                backgroundContainer.classList.remove("processing");
+                replayButton.style.display = "none";
+              } finally {
+                audioChunks = [];
+                stream.getTracks().forEach((track) => track.stop());
+              }
+            };
+
+            mediaRecorder.start();
+            isRecording = true;
+            backgroundContainer.classList.add("recording");
+            micButton.classList.add("recording");
+            micButton.innerHTML = '<span class="mic-icon">⏺</span>';
+          } catch (error) {
+            console.error("Microphone access denied:", error);
+            micButton.disabled = false;
+          }
+        } else {
           mediaRecorder.stop();
-          startButton.disabled = false;
-          stopButton.disabled = true;
+          isRecording = false;
+          micButton.classList.remove("recording");
+          backgroundContainer.classList.remove("recording");
         }
-      });
-
-      processButton.addEventListener("click", () => {
-        // Placeholder for processing functionality
-        statusDisplay.textContent = "Processing...";
-        setTimeout(() => {
-          statusDisplay.textContent = "Processing complete";
-        }, 2000);
       });
     </script>
   </body>
