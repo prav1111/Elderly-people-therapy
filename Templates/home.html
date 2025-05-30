@@ -3,19 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Particle Home</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>AI सारथी</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css')}}"
+    />
   </head>
   <body>
     <nav>
-      <a href="about.html" class="nav-left">About</a>
+      <a href="{{ url_for('about')}}" class="nav-left">About</a>
       <a href="#" class="bug-icon">🏠</a>
-      <a href="ai.html" class="nav-right">The AI</a>
+      <a href="{{ url_for('ai')}}" class="nav-right">The AI</a>
     </nav>
 
     <div class="hero-section">
       <h1 class="main-title">AI सारथी</h1>
-      <a href="ai.html" class="button-link">
+      <a href="{{ url_for('ai')}}" class="button-link">
         <button class="animated-button" id="animatedButton">
           <span class="button-text">Need someone to talk to?</span>
         </button>
@@ -40,10 +43,15 @@
         <button class="content-button learn-more" id="learn-more-btn">
           Learn More
         </button>
-        <button class="content-button solution">The Solution</button>
+        <button
+          class="content-button solution"
+          onclick="window.location.href =  url_for('ai')"
+        >
+          The Solution
+        </button>
       </div>
       <img
-        src="Elder guy smiling.png"
+        src="{{ url_for('static', filename='Elder guy smiling.png')}}"
         alt="Elderly Guy Smiling"
         class="gpt-image-right"
       />
@@ -59,7 +67,7 @@
           </div>
           <div class="vertical-line vertical-line-india"></div>
           <img
-            src="ChatGPT Image May 14, 2025, 08_59_12 PM.png"
+            src="{{ url_for('static', filename='ChatGPT Image May 14, 2025, 08_59_12 PM.png')}}"
             alt="ChatGPT"
             class="gpt-image-left"
           />
@@ -101,7 +109,11 @@
           of life for elderly citizens. Urgent action is needed to support this
           rapidly growing demographic.
         </div>
-        <img src="growth.png" alt="Growth" class="popup-image" />
+        <img
+          src="{{ url_for('static', filename='growth.png')}}"
+          alt="Growth"
+          class="popup-image"
+        />
       </div>
     </div>
 
@@ -122,7 +134,11 @@
           care are essential steps to support the elderly and improve their
           overall quality of life.
         </div>
-        <img src="isolation.png" alt="Isolation" class="popup-image" />
+        <img
+          src="{{ url_for('static', filename='isolation.png')}}"
+          alt="Isolation"
+          class="popup-image"
+        />
       </div>
     </div>
 
@@ -198,8 +214,8 @@
     </p>
 
     <canvas id="bgCanvas"></canvas>
-    <script src="particles.js"></script>
-    <script src="scroll-animation.js"></script>
-    <script src="button-animation.js"></script>
+    <script src="{{ url_for('static', filename='particles.js')}}"></script>
+    <script src="{{ url_for('static', filename='scroll-animation.js')}}"></script>
+    <script src="{{ url_for('static', filename='button-animation.js')}}"></script>
   </body>
 </html>

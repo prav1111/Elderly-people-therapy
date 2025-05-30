@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css')}}"
+    />
   </head>
   <body>
     <nav>
@@ -32,13 +35,21 @@
       </div>
     </div>
     <img
-      src="better-removebg-preview.png"
+      src="{{ url_for('static', filename='better-removebg-preview.png')}}"
       alt="Profile"
       class="blue-box-image"
     />
-    <img src="point2.png" alt="Arrow Pointing" class="point2-image" />
+    <img
+      src="{{ url_for('static', filename='point2.png')}}"
+      alt="Arrow Pointing"
+      class="point2-image"
+    />
     <div class="dawg-label">The dog I made!</div>
-    <img src="dawg.png" alt="Dog" class="dawg-image" />
+    <img
+      src="{{ url_for('static', filename='dawg.png')}}"
+      alt="Dog"
+      class="dawg-image"
+    />
 
     <canvas id="bgCanvas"></canvas>
     <script src="particles.js"></script>
